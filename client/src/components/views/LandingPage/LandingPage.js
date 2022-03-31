@@ -5,6 +5,7 @@ import MainImage from './Section/MainImage';
 // import axios from 'axios';
 import GridCards from '../commons/GridCards';
 import { Row } from 'antd';
+import { Button } from 'antd' ;
 
 function LandingPage() {
 
@@ -76,7 +77,7 @@ function LandingPage() {
             </div>
 
             <div style={{ display: 'flex', justifyContent: 'center'}}>
-                <button onClick={loadmoreItems}>Load More</button>
+                <Button onClick={loadmoreItems}>Load More</Button>
             </div>
 
         </div>
