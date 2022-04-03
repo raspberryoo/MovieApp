@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 // import { FaCode } from "react-icons/fa";
 import { API_URL, API_KEY, IMAGE_BASE_URL } from '../../Config';
 import MainImage from './Section/MainImage';
-// import axios from 'axios';
+import axios from 'axios';
 import GridCards from '../commons/GridCards';
 import { Row } from 'antd';
 import { Button } from 'antd' ;
@@ -44,9 +44,9 @@ function LandingPage() {
             {/* Main image */}
             {MainMovieImage &&
                 <MainImage 
-                image = {`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`} 
-                title = {MainMovieImage.original_title}
-                text = {MainMovieImage.overview}
+                    image = {`${IMAGE_BASE_URL}w1280${MainMovieImage.backdrop_path}`} 
+                    title = {MainMovieImage.original_title}
+                    text = {MainMovieImage.overview}
                 />
             }
 
@@ -66,7 +66,8 @@ function LandingPage() {
                                 image={movie.poster_path ?
                                     `${IMAGE_BASE_URL}w500${movie.poster_path}` : null}
                                 movieId={movie.id}
-                                movieName={movie.original_title} />
+                                movieName={movie.original_title} 
+                            />
                         </React.Fragment>
                     ))}
 

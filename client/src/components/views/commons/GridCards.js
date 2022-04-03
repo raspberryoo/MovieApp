@@ -1,32 +1,33 @@
+
 import React from 'react'
-import{ Col } from 'antd';
+import { Col } from 'antd';
 
 
-function GridCards(props) { //그리드이미지 가져오기 4*5
-    
-    if(props.landingPage) {
+function GridCards(props) {
+
+    if (props.landingPage) {
         return (
             <Col lg={6} md={8} xs={24}>
-                <div style={{ position: 'relative'}}>
+                <div style={{ position: 'relative' }}>
                     <a href={`/movie/${props.movieId}`} >
-                        <img style={{ width: '100%', height: '380px' }}src={props.image} alt={props.movieName} />
+                        <img style={{ width: '100%', height: '320px' }} src={props.image} alt={props.movieName} />
                     </a>
                 </div>
             </Col>
-        
-            )
-    }else {
+        )
+        //a태그를 제거했는데도 기능이 안 없어짐.
+    } else {
         return (
             <Col lg={6} md={8} xs={24}>
-                <div style={{ position: 'relative'}}>
-        
-                        <img style={{ width: '100%', height: '380px' }}src={props.image} alt={props.chracterName} />
-            
+                <div style={{ position: 'relative' }}>
+
+                    <img style={{ width: '100%', height: '320px' }} src={props.image} alt={props.characterName} />
+
                 </div>
             </Col>
-        
-            )
+        )
     }
+
 }
 
 export default GridCards

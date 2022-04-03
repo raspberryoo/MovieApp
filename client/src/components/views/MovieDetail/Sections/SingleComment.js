@@ -1,53 +1,57 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import { Comment, Avatar, Button, Input } from 'antd';
-import Axios from 'axios';
 import { useSelector } from 'react-redux';
+import Axios from 'axios';
 import LikeDislikes from './LikeDislikes';
+
 const { TextArea } = Input;
+
 function SingleComment(props) {
     const user = useSelector(state => state.user);
-    const [CommentValue, setCommentValue] = useState("")
-    const [OpenReply, setOpenReply] = useState(false)
 
-    const handleChange = (event) => {
-        setCommentValue(event.currentTarget.Commentvalue)
+    const [CommentValue, setCommentValue] =useState()
+    const [OpenReply, setOpenReply] = useState(false)
+    
+    const openReply = () => {
+        setOpenReply(!OpenReply)
     }
 
-    const penReply = () => {
-        setOpenReply(!OpenReply)
+    const handleChange = (event) => {
+        setCommentValue(event.currentTarget.Value)
     }
 
     const onSubmit = (event) => {
         event.preventDefault();
 
         const variables = {
-            writer: user.userData._id,
+            content: CommentValue,
+            writer: user.userData._id ,
             postId: props.postId,
-            responseTo: props.comment._id,
-            content: CommentValue
+            responseTo: props.comment._id
         }
 
 
         Axios.post('/api/comment/saveComment', variables)
-            .then(response => {
-                if (response.data.success) {
-                    setCommentValue("")
-                    setOpenReply(!OpenReply)
-                    props.refreshFunction(response.data.result)
-                } else {
-                    alert('Failed to save Comment')
-                }
-            })
-    }
+        .then(response => {
+            if (response.data.success) {
+                setCommentValue("")
+                setOpenReply(!OpenReply)
+                props.refreshFunction(response.data.result)
+            } else {
+                alert('Failed to save Comment')
+            }
+        })
 
+    }
+    
+    // 대댓글 나오게 하는 기능
     const actions = [
-        <LikeDislikes comment commentId={props.comment._id} userId={localStorage.getItem('userId')} />,
-        <span onClick={openReply} key="comment-basic-reply-to">Reply to </span>
+        <span onClick={openReply} key="comment-basic-reply-to">Reply to</span>
     ]
 
-    return (
-        <div>
-            <Comment
+  return (
+    <div>
+        <Comment
                 actions={actions}
                 author={props.comment.writer.name}
                 avatar={
@@ -63,7 +67,6 @@ function SingleComment(props) {
                 }
             ></Comment>
 
-
             {OpenReply &&
                 <form style={{ display: 'flex' }} onSubmit={onSubmit}>
                     <TextArea
@@ -76,9 +79,8 @@ function SingleComment(props) {
                     <Button style={{ width: '20%', height: '52px' }} onClick={onSubmit}>Submit</Button>
                 </form>
             }
-
-        </div>
-    )
+    </div>
+  )
 }
 
 export default SingleComment
